@@ -8,12 +8,7 @@ window.onload = function() {
 	word = word.toLowerCase();
     var cust = document.getElementById("custom");
 	var defcontainer = document.getElementById("fromdict");
-<<<<<<< HEAD
-    cust.innerHTML="Word: "+ word;
-=======
     cust.innerHTML=word;
->>>>>>> bootstrap stuff
-
 	
 	var xhr = new XMLHttpRequest();
 	var url = "http://glosbe.com/gapi/translate?from=eng&dest=eng&format=json&phrase="+word+"&pretty=true";
@@ -24,11 +19,7 @@ window.onload = function() {
 		if (xhr.readyState == 4) {
 			// JSON.parse does not evaluate the attacker's scripts.
 			var resp = JSON.parse(xhr.responseText);
-<<<<<<< HEAD
-			var def = "Definition: "+resp["tuc"][0]["meanings"][0]["text"];
-=======
 			var def = resp["tuc"][0]["meanings"][0]["text"];
->>>>>>> bootstrap stuff
 			defcontainer.innerHTML = def;
 		}
 	}
@@ -50,14 +41,10 @@ function redefine() {
 		if (xhr.readyState == 4) {
 			// JSON.parse does not evaluate the attacker's scripts.
 			var resp = JSON.parse(xhr.responseText);
-<<<<<<< HEAD
-			var def = "Translation: "+resp["tuc"][0]["phrase"]["text"];
-=======
       if (sel == "eng")
         var def = resp["tuc"][0]["meanings"][0]["text"];
       else
         var def = resp["tuc"][0]["phrase"]["text"];
->>>>>>> bootstrap stuff
 			defcontainer.innerHTML = def;
 		}
 	}
