@@ -13,34 +13,48 @@
     </div>
     
     <div class = "row-fluid">
-      <div class = "span3">     
+      <div class = "col-lg-2">     
         <h2>Word:</h2>
         <p id = "custom"></p>
       </div>
       
-      <div class = "span3">
-        <h2>Desired Language</h2>
-        <select id = "langselect">
-          <option value = "eng">English</option>
-          <option value = "spa">Spanish</option>
-          <option value = "cmn">Chinese(Mandarin)</option>
-        </select>
+      <div class = "col-lg-2">
+        <h2>Language:</h2>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default" id = "lang-button">English</button>
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" id = "mylist">
+            <li class = disabled id = "eng"><a href="#">English</a></li>
+            <li id = "spa"><a href="#">Spanish</a></li>
+            <li id = "cmn"><a href="#">Chinese(Mandarin)</a></li>
+
+          </ul>
+        </div>
       </div>
       
-      <div class = "span3">
-        <h2>Glosbe definition</h2>
-        <p id = "fromdict"></p>
+      <div class = "col-lg-8">
+        <h2 id = "defHeading">Definition</h2>
+        <div class="input-group">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default" data-toggle="dropdown" id = "dictbutton">Glosbe</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </button>
+            <ul id = "defsource" class="dropdown-menu">
+              <li id = "glosbeDefSel" class = "disabled"><a href="#">Glosbe</a></li>
+              <li class="divider"></li>
+              <li id = "userDefSel"><a href="#">User</a></li>
+            </ul>
+          </div><!-- /btn-group -->
+          <input type="text" class="form-control" value ="Hello" id = "fromdict">
+        </div><!-- /input-group -->        
       </div>
-      
-      <div class = "span3">
-        <h2>User definition</h2>
-        <form class = "form-inline">
-          <input type="text" name="userdef" placeholder ="Definition"><br>
-          <button type = "submit" class ="btn btn-default">Add to list</button>
-        </form>        
-      </div>
+
       <script src="js/jquery-2.0.3.js"></script>
       <script src = "js/popup.js"></script>
+      <script src = "js/bootstrap.min.js"></script>
     </div><!-- .row -->  
   </div><!-- .container -->  
 	</body>

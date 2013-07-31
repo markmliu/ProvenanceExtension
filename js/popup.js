@@ -1,14 +1,11 @@
-//	listen for changes to language selection	
-	document.addEventListener('DOMContentLoaded', function(){
-		$("#langselect").on("change",redefine);
-	});
 
 window.onload = function() {     
-    var word = localStorage.text;
+  var word = localStorage.text;
 	word = word.toLowerCase();
-    var cust = document.getElementById("custom");
+  var cust = document.getElementById("custom");
 	var defcontainer = document.getElementById("fromdict");
-    cust.innerHTML=word;
+  var dictbutton = document.getElementById("dictbutton");
+  cust.innerHTML=word;
 	
 	var xhr = new XMLHttpRequest();
 	var url = "http://glosbe.com/gapi/translate?from=eng&dest=eng&format=json&phrase="+word+"&pretty=true";
@@ -20,17 +17,42 @@ window.onload = function() {
 			// JSON.parse does not evaluate the attacker's scripts.
 			var resp = JSON.parse(xhr.responseText);
 			var def = resp["tuc"][0]["meanings"][0]["text"];
-			defcontainer.innerHTML = def;
+			defcontainer.value = def;
+      localStorage.def = def;
 		}
 	}
+  
 	xhr.send();
-	
+  //listen for changes in language or user/glosbe definition
+  $("#userDefSel").on("click", function() {
+    $("#defsource").children().removeClass("disabled");   
+    this.className+="disabled";
+    dictbutton.innerHTML = "User";
+    defcontainer.value = "";
+    defcontainer.placeholder = "Enter definition here";
+  });	
+  $("#glosbeDefSel").on("click", function() {
+    $("#defsource").children().removeClass("disabled");   
+    this.className+="disabled";
+    dictbutton.innerHTML = "Glosbe";
+    defcontainer.value = localStorage.def;
+    defcontainer.placeholder = "";
+  });
+  $("#mylist").delegate('li','click',redefine);
 };
 function redefine() {
+  //undisable current language selection
+  $("#mylist").children().removeClass("disabled");
+  //disable new language selection
+  this.className +="disabled";
+  var langButton = document.getElementById("lang-button");
+  langButton.innerHTML = this.getElementsByTagName('a')[0].innerHTML;
+
 	var word = localStorage.text;
 	word = word.toLowerCase();
 	var defcontainer = document.getElementById("fromdict");
-	var sel = $("#langselect").val();
+  var defheading = document.getElementById("defHeading");
+	var sel = this.id;
 	defcontainer.innerHTML = "Switched to "+sel;
 	var xhr = new XMLHttpRequest();
 	var url = "http://glosbe.com/gapi/translate?from=eng&dest="+sel+"&format=json&phrase="+word+"&pretty=true";
@@ -41,11 +63,16 @@ function redefine() {
 		if (xhr.readyState == 4) {
 			// JSON.parse does not evaluate the attacker's scripts.
 			var resp = JSON.parse(xhr.responseText);
-      if (sel == "eng")
+      if (sel == "eng"){
         var def = resp["tuc"][0]["meanings"][0]["text"];
-      else
+        defheading.innerHTML = "Definition";
+      }
+      else {
         var def = resp["tuc"][0]["phrase"]["text"];
-			defcontainer.innerHTML = def;
+        defheading.innerHTML = "Translation";
+      }
+			defcontainer.value = def;
+      localStorage.def = def;
 		}
 	}
 	xhr.send();
