@@ -1,6 +1,6 @@
 
 function popitup(info, tab) {
-    localStorage.text = info.selectionText;
+    localStorage.setItem("vocabWord",info.selectionText);
   var newwindow=window.open('popup.html','dummy','height=300,width=1500, location = no, menubar = no');
 	if (window.focus) {newwindow.focus()}
 	return false;
