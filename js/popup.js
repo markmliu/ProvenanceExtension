@@ -28,9 +28,12 @@ function getDef(language){
 
 window.onload = function() {     
     var word = localStorage.getItem("vocabWord");
+    var username = localStorage.getItem("username");
     word = word.toLowerCase();
     var wordContainer = document.getElementById("wordContainer");
+    var userContainer = document.getElementById("userContainer");
     wordContainer.innerHTML=word;
+    userContainer.innerHTML="Hello " + username+"! ";
     getDef("eng");
     //listen for changes in language or user/glosbe definition
 	var defcontainer = document.getElementById("fromdict");
